@@ -21,6 +21,7 @@ package multiformat;
 /**
  * Class representing a rational ('breuk').
  * @author J.Baljé: Added comments
+ * @version 1.0
  */
 public class Rational {
 	static final double PRECISION=10;
