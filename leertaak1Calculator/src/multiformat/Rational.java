@@ -129,7 +129,7 @@ public class Rational {
 
 	public Rational div(Rational other) {
 		return new Rational(
-			numerator * other.denominator,
+			numerator * other.denominator,	
 			denominator * other.numerator);
 	}
 
