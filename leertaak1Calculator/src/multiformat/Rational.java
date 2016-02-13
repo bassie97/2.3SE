@@ -127,9 +127,12 @@ public class Rational {
 			denominator * other.denominator);
 	}
 
-	public Rational div(Rational other) {
+	public Rational div(Rational other) throws IllegalArgumentException{ 
+		if(other.numerator == 0.0){
+			throw new IllegalArgumentException("Divide by 0!");
+		}
 		return new Rational(
-			numerator * other.denominator,	
+			numerator * other.denominator,
 			denominator * other.numerator);
 	}
 
