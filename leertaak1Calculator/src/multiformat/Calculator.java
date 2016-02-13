@@ -48,7 +48,14 @@ public class Calculator {
     operand_1 = new Rational();
   }
   public void divide() {
-    operand_0 = operand_1.div(operand_0);
+	 Rational tempOperand = operand_1;
+	 try{
+		 operand_0 = operand_1.div(operand_0);
+	 }
+	 catch(IllegalArgumentException zero){
+		 System.out.println("Cant devide by zero dummy!");
+		 operand_0 = tempOperand;
+	 }
     operand_1 = new Rational();
   }
   public void delete() {
