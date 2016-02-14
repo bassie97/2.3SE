@@ -16,11 +16,15 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
  * 02111-1307  USA
  */
-package multiformat;
+package model;
 
+/**
+ * Decimal numbering base
+ */
 
-public class HexBase extends Base {
-  public HexBase() {
-    super("hexadecimal",16,"0123456789ABCDEF");
+public class DecimalBase
+extends Base {
+  public DecimalBase() {
+    super("decimal",10,"0123456789");
   }
 }

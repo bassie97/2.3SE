@@ -18,7 +18,7 @@
  */
 package test;
 import junit.framework.TestCase;
-import multiformat.*;
+import model.*;
 
 
 public class TestCalculator extends TestCase {

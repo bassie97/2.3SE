@@ -17,8 +17,9 @@
  * 02111-1307  USA
  */
 package ui;
-import multiformat.*;
 import java.io.*;
+
+import model.*;
 
 /**
  * De main-klasse die leest en schrijft naar de console.

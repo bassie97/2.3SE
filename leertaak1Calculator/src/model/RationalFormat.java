@@ -16,15 +16,24 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
  * 02111-1307  USA
  */
-package multiformat;
+package model;
 
-/**
- * Decimal numbering base
- */
+public class RationalFormat extends Format {
 
-public class DecimalBase
-extends Base {
-  public DecimalBase() {
-    super("decimal",10,"0123456789");
+  public String getName() { return "rat"; }
+
+  String toString(Rational number, Base base) {
+    return base.toString(number.numerator) +
+            "/" + base.toString(number.denominator);
+  }
+
+  Rational parse(String number, Base base) throws FormatException {
+    int index = number.indexOf('/');
+    if(index >= 0)
+		return new Rational(base.parse(number.substring(0, index).trim()),
+        base.parse(number.substring(index+1).trim()));
+    else {
+      throw new FormatException("Error! Not a rational format");
+    }
   }
 }

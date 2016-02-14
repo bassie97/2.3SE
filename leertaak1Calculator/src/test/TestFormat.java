@@ -18,9 +18,9 @@
  */
 package test;
 import junit.framework.TestCase;
-import org.junit.Test;
+import model.*;
 
-import multiformat.*;
+import org.junit.Test;
 
 public class TestFormat extends TestCase {
 

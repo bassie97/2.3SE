@@ -1,4 +1,4 @@
-package multiformat;
+package model;
 
 public class NumberBaseException extends Exception{
 	/**
