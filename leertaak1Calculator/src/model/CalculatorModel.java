@@ -18,10 +18,14 @@
  */
 package model;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 /**
  * The multiformat calculator
  */
-public class Calculator {
+public class CalculatorModel {
   private Rational operand_0 = new Rational();
   private Rational operand_1 = new Rational();
   
@@ -29,6 +33,11 @@ public class Calculator {
   private Format format = new FixedPointFormat();
   // The current numberbase of the calculator
   private Base base = new DecimalBase();
+  // The current result string on the result view
+  private String text = new String();
+  
+  //Utility field used by event firing machine
+  private ArrayList<ActionListener> actionListenerList;
 
   public void addOperand(String newOperand) throws FormatException {
 	  operand_1 = operand_0;
@@ -39,6 +48,23 @@ public class Calculator {
 	  catch (NumberBaseException ex){
 		  System.out.println("Wrong operand: " + ex.getMessage());
 	  }  
+  }
+  
+  /**
+   * update the string for the view
+   * @param keyStroke
+   */
+  public void updateText(String keyStroke){
+	  text = text + keyStroke;
+	  processEvent(
+			  new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "updateText"));
+  }
+
+/**
+   * @return text
+   */
+  public String getText(){
+	  return text;
   }
 
   public void add(){
@@ -87,5 +113,44 @@ public class Calculator {
   }
   public Format getFormat(){
     return format;
+  }
+  
+  /**
+   * fire action events
+   * @param actionEvent
+   */
+  private void processEvent(ActionEvent e) {
+		ArrayList list;
+		
+		synchronized (this) {
+			if (actionListenerList == null) return;
+			list = (ArrayList) actionListenerList.clone();
+		}
+		
+		for (int i = 0; i < list.size(); i++) {
+			ActionListener listener = (ActionListener) list.get(i);
+			listener.actionPerformed(e);
+		}
+		
+	}
+
+  /**
+   * register an actionevent listener
+   * @param l
+   */
+  public synchronized void addActionListener(ActionListener l) {
+	  if (actionListenerList == null)
+		  actionListenerList = new ArrayList<ActionListener>();
+	  
+	  actionListenerList.add(l);
+  }
+  
+  /**
+   * removen an actioneventlistener
+   * @param l
+   */
+  public synchronized void removeActionListener(ActionEvent l) {
+	  if (actionListenerList != null && actionListenerList.contains(l))
+	  actionListenerList.remove(l);
   }
 }

@@ -16,37 +16,26 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
  * 02111-1307  USA
  */
-package test;
-import junit.framework.TestCase;
-import model.*;
+package model;
 
+import exception.FormatException;
 
-public class TestCalculator extends TestCase {
+public class RationalFormat extends Format {
 
-	public TestCalculator(String arg0) {
-		super(arg0);
-	}
+  public String getName() { return "rat"; }
 
-	public void testOperations(){
-	
-		CalculatorModel calc = new CalculatorModel();
-		
-		try{
-		calc.addOperand("3.2");
-		assertEquals("0.0",calc.firstOperand());
-		assertEquals("3.2",calc.secondOperand());
+  public String toString(Rational number, Base base) {
+    return base.toString(number.numerator) +
+            "/" + base.toString(number.denominator);
+  }
 
-		calc.addOperand("2.8");
-		assertEquals("3.2",calc.firstOperand());
-		assertEquals("2.8",calc.secondOperand());
-		
-		calc.add();
-		assertEquals("0.0",calc.firstOperand());
-		assertEquals("6.0",calc.secondOperand());
-		}catch(FormatException e){
-			fail("Unexpected format exception");
-		}
-	}
-	
-	
+  public Rational parse(String number, Base base) throws FormatException {
+    int index = number.indexOf('/');
+    if(index >= 0)
+      return new Rational(base.parse(number.substring(0, index).trim()),
+                   base.parse(number.substring(index+1).trim()));
+    else {
+      throw new FormatException("Error! Not a rational format");
+    }
+  }
 }

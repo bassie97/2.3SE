@@ -16,37 +16,24 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
  * 02111-1307  USA
  */
-package test;
-import junit.framework.TestCase;
-import model.*;
+package model;
 
+public class FixedPointFormat
+extends Format {
 
-public class TestCalculator extends TestCase {
+  static final int MAX_PRECISION = 10;  // max # of number after point
 
-	public TestCalculator(String arg0) {
-		super(arg0);
-	}
+  public String getName() { return "fixed"; }
 
-	public void testOperations(){
-	
-		CalculatorModel calc = new CalculatorModel();
-		
-		try{
-		calc.addOperand("3.2");
-		assertEquals("0.0",calc.firstOperand());
-		assertEquals("3.2",calc.secondOperand());
+  public String toString(Rational number, Base base) {
+    double value = (double)number.numerator / (double)number.denominator;
+    String result = base.toString(Math.abs(value));
+    if(result.equals("0")) result += ".0";
+    if(value<0) result = "-" + result;
+    return result;
+  }
 
-		calc.addOperand("2.8");
-		assertEquals("3.2",calc.firstOperand());
-		assertEquals("2.8",calc.secondOperand());
-		
-		calc.add();
-		assertEquals("0.0",calc.firstOperand());
-		assertEquals("6.0",calc.secondOperand());
-		}catch(FormatException e){
-			fail("Unexpected format exception");
-		}
-	}
-	
-	
+  public Rational parse(String number, Base base) {
+    return new Rational(base.parse(number));
+  }
 }

@@ -16,37 +16,15 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
  * 02111-1307  USA
  */
-package test;
-import junit.framework.TestCase;
-import model.*;
+package exception;
 
+import javax.swing.JOptionPane;
 
-public class TestCalculator extends TestCase {
+public class DivideException extends Exception {
+ 	private static final long serialVersionUID = 1L;
 
-	public TestCalculator(String arg0) {
-		super(arg0);
-	}
-
-	public void testOperations(){
-	
-		CalculatorModel calc = new CalculatorModel();
-		
-		try{
-		calc.addOperand("3.2");
-		assertEquals("0.0",calc.firstOperand());
-		assertEquals("3.2",calc.secondOperand());
-
-		calc.addOperand("2.8");
-		assertEquals("3.2",calc.firstOperand());
-		assertEquals("2.8",calc.secondOperand());
-		
-		calc.add();
-		assertEquals("0.0",calc.firstOperand());
-		assertEquals("6.0",calc.secondOperand());
-		}catch(FormatException e){
-			fail("Unexpected format exception");
-		}
-	}
-	
-	
+public DivideException(String msg) {
+		JOptionPane.showMessageDialog(null, "Can't divide by 0!", "Error",
+	            JOptionPane.ERROR_MESSAGE);
+	  }
 }

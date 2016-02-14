@@ -30,7 +30,7 @@ public class TestFormat extends TestCase {
 	
 	@Test(expected = NumberBaseException.class)
 	public void testNumberBaseException(){
-		Calculator calc = new Calculator();
+		CalculatorModel calc = new CalculatorModel();
 		
 		try{
 			calc.setBase(new HexBase());
@@ -41,7 +41,7 @@ public class TestFormat extends TestCase {
 	}
 
     public void testFormatBase(){
-    	Calculator calc = new Calculator();
+    	CalculatorModel calc = new CalculatorModel();
     	
     	try {
 			calc.addOperand("0.75");

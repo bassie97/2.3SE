@@ -1,0 +1,89 @@
+package view;
+
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
+
+import controller.Calculator;
+import exception.FormatException;
+import exception.NumberBaseException;
+
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Color;
+import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import javax.swing.JSplitPane;
+import javax.swing.border.LineBorder;
+
+public class VariableView extends JPanel{
+
+	private Calculator calc;
+	
+	public VariableView(Calculator calc){
+		this.calc = calc;
+		setBorder(new TitledBorder(null, "Variables", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		setBounds(659, 11, 206, 306);
+		setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Name");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBackground(Color.BLUE);
+		lblNewLabel.setBounds(12, 16, 61, 14);
+		add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Value");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(73, 16, 57, 14);
+		add(lblNewLabel_1);
+		
+		JLabel lblButton = new JLabel("Button");
+		lblButton.setHorizontalAlignment(SwingConstants.CENTER);
+		lblButton.setBounds(131, 16, 57, 14);
+		add(lblButton);
+		
+		JButton btnNewButton = new JButton("New Variable");
+		btnNewButton.setBounds(36, 270, 123, 23);
+		add(btnNewButton);
+		
+		JPanel namePanel = new JPanel();
+		namePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		namePanel.setBounds(16, 41, 57, 219);
+		add(namePanel);
+		namePanel.setLayout(new GridLayout(10, 1, 0, 0));
+		
+		JPanel valuePanel = new JPanel();
+		valuePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		valuePanel.setBounds(73, 41, 57, 219);
+		add(valuePanel);
+		valuePanel.setLayout(new GridLayout(10, 1, 0, 0));
+		
+		JPanel knopPanel = new JPanel();
+		knopPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		knopPanel.setBounds(131, 41, 57, 219);
+		add(knopPanel);
+		knopPanel.setLayout(new GridLayout(10, 1, 0, 0));
+		
+		btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	String name = JOptionPane.showInputDialog("Please enter a symbol for this variable:");
+            	String value = JOptionPane.showInputDialog("Please enter a value this variable:");
+            	try {
+					calc.addVariable(name, value);
+				} catch (NumberBaseException e1) {
+				} catch (FormatException e1) {
+				}
+            	
+            	
+            	namePanel.add(new JLabel(name));
+            	valuePanel.add(new JLabel(value));
+            	knopPanel.add(new JButton("add"));
+            	
+            }
+        });
+	}
+}

@@ -17,8 +17,9 @@
  * 02111-1307  USA
  */
 package ui;
+import model.*;
 import java.io.*;
-
+import model.CalculatorModel;
 import model.*;
 
 /**
@@ -28,7 +29,7 @@ import model.*;
  * @author Baljé
  */
 public class Command {
-  Calculator calc=new Calculator();
+  CalculatorModel calc=new CalculatorModel();
   BufferedReader prevReader=null;
   BufferedReader lineReader = new  BufferedReader( new InputStreamReader( System.in ) );
 

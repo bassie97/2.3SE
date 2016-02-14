@@ -16,37 +16,25 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
  * 02111-1307  USA
  */
-package test;
-import junit.framework.TestCase;
-import model.*;
+package model;
 
+import exception.FormatException;
 
-public class TestCalculator extends TestCase {
+public abstract class Format {
+  // public members
+  public abstract String getName();
 
-	public TestCalculator(String arg0) {
-		super(arg0);
-	}
+  // package visible member
+  /**
+   * Translate the internal Rational to a String representation
+   * using the correct Format and Base.
+   */
+  public abstract String toString(Rational p_number, Base p_base);
+  
+  /**
+   * Translate a string representation in a specific format and base to
+   * the internal Rational representation.
+   */
+  public abstract Rational parse(String p_number, Base p_base) throws FormatException;
 
-	public void testOperations(){
-	
-		CalculatorModel calc = new CalculatorModel();
-		
-		try{
-		calc.addOperand("3.2");
-		assertEquals("0.0",calc.firstOperand());
-		assertEquals("3.2",calc.secondOperand());
-
-		calc.addOperand("2.8");
-		assertEquals("3.2",calc.firstOperand());
-		assertEquals("2.8",calc.secondOperand());
-		
-		calc.add();
-		assertEquals("0.0",calc.firstOperand());
-		assertEquals("6.0",calc.secondOperand());
-		}catch(FormatException e){
-			fail("Unexpected format exception");
-		}
-	}
-	
-	
 }
