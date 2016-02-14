@@ -17,6 +17,7 @@
  * 02111-1307  USA
  */
 package multiformat;
+import java.lang.String;
 
 /**
  * A generic numbering base
