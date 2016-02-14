@@ -38,7 +38,10 @@ public class TestFormat extends TestCase {
 			assertEquals("0.11",calc.secondOperand());
 			calc.setBase(new HexBase());
 			assertEquals("0.C",calc.secondOperand());
-
+			
+			calc.setBase(new OctalBase());
+			assertEquals("0.6",calc.secondOperand());
+			   
 			calc.setFormat(new FloatingPointFormat());
 			assertEquals("C.0*10^-1.0",calc.secondOperand());
 			calc.setBase(new BinaryBase());
