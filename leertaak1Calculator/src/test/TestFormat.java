@@ -18,6 +18,7 @@
  */
 package test;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 import multiformat.*;
 
@@ -25,6 +26,18 @@ public class TestFormat extends TestCase {
 
 	public TestFormat(String arg0) {
 		super(arg0);
+	}
+	
+	@Test(expected = NumberBaseException.class)
+	public void testNumberBaseException(){
+		Calculator calc = new Calculator();
+		
+		try{
+			calc.setBase(new HexBase());
+			calc.addOperand("1A");
+		}catch(FormatException e) {
+			fail("Unexpected exception");
+		}
 	}
 
     public void testFormatBase(){

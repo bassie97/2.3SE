@@ -32,7 +32,13 @@ public class Calculator {
 
   public void addOperand(String newOperand) throws FormatException {
 	  operand_1 = operand_0;
-      operand_0 = format.parse(newOperand, base);
+	  try{
+		  base.checkBase(newOperand);
+		  operand_0 = format.parse(newOperand, base);
+	  }	  
+	  catch (NumberBaseException ex){
+		  System.out.println("Wrong operand: " + ex.getMessage());
+	  }  
   }
 
   public void add(){

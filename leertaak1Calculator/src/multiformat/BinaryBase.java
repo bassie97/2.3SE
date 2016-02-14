@@ -24,6 +24,6 @@ package multiformat;
 public class BinaryBase extends Base{
 	
   public BinaryBase() {
-    super("bin",2,"01");
+    super("binary",2,"01");
   }
 }

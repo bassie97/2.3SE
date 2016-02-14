@@ -115,5 +115,16 @@ public abstract class Base {
     }
     return result.toString();
   }
+  
+  public void checkBase(String number) throws NumberBaseException {
+    String checkNumber = digits + "/*.^";
+	String[] numberArr = number.split("", -1);
+	for(int i = 0; i < numberArr.length; i++){
+		int exists = checkNumber.indexOf(numberArr[i]);
+		if( exists < 0){
+			throw new NumberBaseException("Error! Not " + name + " base!");
+		}
+	}
+  }
 }
 
