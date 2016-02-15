@@ -131,6 +131,7 @@ public class CalculatorModel {
   public void clear(){
 	  operand_0 = new Rational();
 	  operand_1 = new Rational();
+	  clearText();
 	  processEvent(
 			  new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "clearoperands"));
   }
@@ -154,6 +155,10 @@ public class CalculatorModel {
   }
   public void setFormat(Format newFormat){
     format = newFormat;
+    text = secondOperand();
+    processEvent(
+			  new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "changed base"));
+    
   }
   public Format getFormat(){
     return format;

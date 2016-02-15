@@ -7,8 +7,11 @@ import java.awt.EventQueue;
 import model.BinaryBase;
 import model.CalculatorModel;
 import model.DecimalBase;
+import model.FixedPointFormat;
+import model.FloatingPointFormat;
 import model.HexBase;
 import model.OctalBase;
+import model.RationalFormat;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -322,16 +325,31 @@ public class CalculatorController extends JFrame {
 		JRadioButton rdbtnFractional = new JRadioButton("Fractional");
 		buttonGroup_1.add(rdbtnFractional);
 		rdbtnFractional.setBounds(663, 312, 127, 25);
+		rdbtnFractional.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e){
+				model.setFormat(new RationalFormat());
+			}
+		});
 		getContentPane().add(rdbtnFractional);
 		
 		JRadioButton rdbtnFloatingPoint = new JRadioButton("Floating Point");
 		buttonGroup_1.add(rdbtnFloatingPoint);
 		rdbtnFloatingPoint.setBounds(663, 334, 127, 25);
+		rdbtnFloatingPoint.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e){
+				model.setFormat(new FloatingPointFormat());
+			}
+		});
 		getContentPane().add(rdbtnFloatingPoint);
 		
 		JRadioButton rdbtnFixedPoint = new JRadioButton("Fixed Point");
 		buttonGroup_1.add(rdbtnFixedPoint);
 		rdbtnFixedPoint.setBounds(663, 356, 127, 25);
+		rdbtnFixedPoint.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e){
+				model.setFormat(new FixedPointFormat());
+			}
+		});
 		getContentPane().add(rdbtnFixedPoint);
 		
 		JButton btnNewButton_2 = new JButton("Add");
