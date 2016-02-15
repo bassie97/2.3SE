@@ -30,6 +30,7 @@ import javax.swing.JOptionPane;
 public class CalculatorModel {
   private Rational operand_0 = new Rational();
   private Rational operand_1 = new Rational();
+  private String operator = "";
   
   // The current format of the calculator
   private Format format = new FixedPointFormat();
@@ -45,7 +46,12 @@ public class CalculatorModel {
 	  operand_1 = operand_0;
 	  try{
 		  base.checkBase(newOperand);
+		  try{
 		  operand_0 = format.parse(newOperand, base);
+		  }catch (FormatException ex){
+			//TODO add dialog for errormessage
+		  	System.out.println("Wrong operand: " + ex.getMessage());
+		  }
 	  }	  
 	  catch (NumberBaseException ex){
 		  System.out.println("Wrong operand: " + ex.getMessage());
@@ -83,7 +89,7 @@ public class CalculatorModel {
 			  addOperand(text);
 			  clearText();
 		  }catch (FormatException ex) {
-			  //to do doe event
+			  System.out.println("Wrong operand: " + ex.getMessage());
 		  }
 	  }	
   }
@@ -135,6 +141,28 @@ public class CalculatorModel {
 	  processEvent(
 			  new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "clearoperands"));
   }
+  
+  public void equals(){
+	  String operator = getText();
+	  clearText();
+	  switch(operator){
+	  case "+":
+	  	  add();
+	  	  break;
+	  case "-":
+		  subtract();
+		  break;
+	  case "/":
+		  divide();
+		  break;
+	  case "*":
+		  multiply();
+		  break;
+	  default:
+		  System.out.println("Wrong operator");
+	  }
+	  
+  }
 
   public String firstOperand(){
     return format.toString(operand_1,base);
@@ -153,6 +181,7 @@ public class CalculatorModel {
   public Base getBase(){
     return base;
   }
+  
   public void setFormat(Format newFormat){
     format = newFormat;
     text = secondOperand();

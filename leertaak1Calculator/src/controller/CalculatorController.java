@@ -95,7 +95,7 @@ public class CalculatorController extends JFrame {
 		button_2.setBounds(449, 156, 97, 70);
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				model.add();
+				model.updateText("+");
 			}
 		});
 		getContentPane().add(button_2);
@@ -104,7 +104,7 @@ public class CalculatorController extends JFrame {
 		button_3.setBounds(558, 156, 97, 70);
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				model.subtract();
+				model.updateText("-");
 			}
 		});
 		getContentPane().add(button_3);
@@ -221,7 +221,7 @@ public class CalculatorController extends JFrame {
 		btnC.setBounds(12, 388, 97, 70);
 		btnC.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				model.updateText("c");
+				model.updateText("C");
 			}
 		});
 		getContentPane().add(btnC);
@@ -260,7 +260,7 @@ public class CalculatorController extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//voor nu dient dit alleen voor de tekst op het scherm.
 				//later aparte methode voor equals maken waarbij berekening wordt uitgevoerd.
-				model.updateText("=");
+				model.equals();
 			}
 		});
 		getContentPane().add(button_20);
