@@ -21,6 +21,8 @@ package model;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Stack;
 
 import javax.swing.JOptionPane;
 
@@ -30,6 +32,8 @@ import javax.swing.JOptionPane;
 public class CalculatorModel {
   private Rational operand_0 = new Rational();
   private Rational operand_1 = new Rational();
+  private Stack<Rational> operands = new Stack();
+  private Iterator<Rational> operandIterator = operands.iterator();
   private String operator = "";
   
   // The current format of the calculator
@@ -46,11 +50,11 @@ public class CalculatorModel {
 
   public void addOperand(String newOperand) throws FormatException {
 	  System.out.println(newOperand);
-	  operand_1 = operand_0;
+	 // operand_1 = operand_0;
 	  try{
 		  base.checkBase(newOperand);
 		  try{
-		  operand_0 = format.parse(newOperand, base);
+		  operands.push(format.parse(newOperand, base));
 		  }catch (FormatException ex){
 			  JOptionPane.showMessageDialog(null, "Wrong operand: " + ex.getMessage());
 		  }
@@ -58,7 +62,7 @@ public class CalculatorModel {
 	  catch (NumberBaseException ex){
 		  JOptionPane.showMessageDialog(null, "Wrong operand: " + ex.getMessage());
 		  clearText();
-	  }  
+	  }
   }
   
   /**
@@ -104,8 +108,11 @@ public class CalculatorModel {
   }
 
   public void add(){
-    operand_0 = operand_1.plus(operand_0);
-    operand_1 = new Rational();
+	
+    operand_0 = new Rational();
+    
+    operand_1.plus(operand_0);
+   // operand_1 = new Rational();
     updateText(secondOperand());
     
   }
@@ -147,7 +154,8 @@ public class CalculatorModel {
   
   public void equals(){
 	  String operator = getText();
-	  String savedOperand = secondOperand();
+	  String savedOperand = firstOperand() + ", " + secondOperand() + ", " + operator + " = ";
+	  
 	  clearText();
 	  switch(operator){
 	  case "+":
@@ -165,10 +173,7 @@ public class CalculatorModel {
 	  default:
 		  System.out.println("Wrong operator");
 	  }
-	  System.out.println(firstOperand());
-	  System.out.println(secondOperand());
-	  System.out.println(savedOperand);
-	  addCalculation(firstOperand() + ", " + savedOperand + ", " + operator + " = " + secondOperand());
+	  addCalculation(savedOperand + secondOperand());
 	  
   }
 
