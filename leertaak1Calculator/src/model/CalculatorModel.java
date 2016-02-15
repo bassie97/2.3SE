@@ -108,11 +108,10 @@ public class CalculatorModel {
   }
 
   public void add(){
-	
+
     operand_0 = new Rational();
     
     operand_1.plus(operand_0);
-   // operand_1 = new Rational();
     updateText(secondOperand());
     
   }
@@ -154,8 +153,9 @@ public class CalculatorModel {
   
   public void equals(){
 	  String operator = getText();
-	  String savedOperand = firstOperand() + ", " + secondOperand() + ", " + operator + " = ";
-	  
+
+	  String savedOperand = secondOperand();
+	  String savedOperand1 = firstOperand();
 	  clearText();
 	  switch(operator){
 	  case "+":
@@ -173,7 +173,8 @@ public class CalculatorModel {
 	  default:
 		  System.out.println("Wrong operator");
 	  }
-	  addCalculation(savedOperand + secondOperand());
+
+	  addCalculation(savedOperand1 + ", " + savedOperand + ", " + operator + " = " + secondOperand());
 	  
   }
 
