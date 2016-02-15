@@ -41,6 +41,8 @@ public class CalculatorModel {
   
   //Utility field used by event firing machine
   private ArrayList<ActionListener> actionListenerList;
+  //Arraylist for keeping track of the used calculations
+  private ArrayList<String> history = new ArrayList<String>();
 
   public void addOperand(String newOperand) throws FormatException {
 	  System.out.println(newOperand);
@@ -50,7 +52,6 @@ public class CalculatorModel {
 		  try{
 		  operand_0 = format.parse(newOperand, base);
 		  }catch (FormatException ex){
-			//TODO add dialog for errormessage
 			  JOptionPane.showMessageDialog(null, "Wrong operand: " + ex.getMessage());
 		  }
 	  }	  
@@ -146,6 +147,7 @@ public class CalculatorModel {
   
   public void equals(){
 	  String operator = getText();
+	  String savedOperand = secondOperand();
 	  clearText();
 	  switch(operator){
 	  case "+":
@@ -163,6 +165,10 @@ public class CalculatorModel {
 	  default:
 		  System.out.println("Wrong operator");
 	  }
+	  System.out.println(firstOperand());
+	  System.out.println(secondOperand());
+	  System.out.println(savedOperand);
+	  addCalculation(firstOperand() + ", " + savedOperand + ", " + operator + " = " + secondOperand());
 	  
   }
 
@@ -213,6 +219,20 @@ public class CalculatorModel {
 		}
 		
 	}
+  
+  /**
+   * add a calculation to the history
+   * @param calc
+   */
+  private void addCalculation(String calc) {
+	  history.add(calc);
+	  processEvent(
+			  new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "update history"));
+  }
+  
+  public ArrayList<String> getHistory(){
+	  return this.history;
+  }
 
   /**
    * register an actionevent listener

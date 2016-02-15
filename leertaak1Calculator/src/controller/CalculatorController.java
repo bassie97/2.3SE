@@ -33,6 +33,7 @@ import javax.swing.JToggleButton;
 import javax.swing.JSeparator;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ButtonGroup;
+import javax.swing.JList;
 
 public class CalculatorController extends JFrame {
 	/**
@@ -52,7 +53,7 @@ public class CalculatorController extends JFrame {
 		setTitle("MultiFormatCalculator");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 805, 503);
+		setBounds(100, 100, 1007, 503);
 		getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("1");
@@ -276,7 +277,7 @@ public class CalculatorController extends JFrame {
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Hexadecimal");
 		buttonGroup.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setBounds(664, 179, 127, 25);
+		rdbtnNewRadioButton.setBounds(664, 179, 101, 25);
 		rdbtnNewRadioButton.addActionListener(new ActionListener() { 
 				public void actionPerformed(ActionEvent e){
 					model.setBase(new HexBase());
@@ -290,7 +291,7 @@ public class CalculatorController extends JFrame {
 		
 		JRadioButton rdbtnBinary = new JRadioButton("Binary");
 		buttonGroup.add(rdbtnBinary);
-		rdbtnBinary.setBounds(663, 201, 127, 25);
+		rdbtnBinary.setBounds(663, 201, 102, 25);
 		rdbtnBinary.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e){
 				model.setBase(new BinaryBase());
@@ -300,7 +301,7 @@ public class CalculatorController extends JFrame {
 		
 		JRadioButton rdbtnOctal = new JRadioButton("Octal");
 		buttonGroup.add(rdbtnOctal);
-		rdbtnOctal.setBounds(663, 222, 127, 25);
+		rdbtnOctal.setBounds(663, 222, 102, 25);
 		rdbtnOctal.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e){
 				model.setBase(new OctalBase());
@@ -311,7 +312,7 @@ public class CalculatorController extends JFrame {
 		JRadioButton rdbtnDecimal = new JRadioButton("Decimal");
 		rdbtnDecimal.setSelected(true);
 		buttonGroup.add(rdbtnDecimal);
-		rdbtnDecimal.setBounds(663, 245, 127, 25);
+		rdbtnDecimal.setBounds(663, 245, 102, 25);
 		rdbtnDecimal.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e){
 				model.setBase(new DecimalBase());
@@ -325,7 +326,7 @@ public class CalculatorController extends JFrame {
 		
 		JRadioButton rdbtnFractional = new JRadioButton("Fractional");
 		buttonGroup_1.add(rdbtnFractional);
-		rdbtnFractional.setBounds(663, 312, 127, 25);
+		rdbtnFractional.setBounds(663, 312, 108, 25);
 		rdbtnFractional.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e){
 				model.setFormat(new RationalFormat());
@@ -335,7 +336,7 @@ public class CalculatorController extends JFrame {
 		
 		JRadioButton rdbtnFloatingPoint = new JRadioButton("Floating Point");
 		buttonGroup_1.add(rdbtnFloatingPoint);
-		rdbtnFloatingPoint.setBounds(663, 334, 127, 25);
+		rdbtnFloatingPoint.setBounds(663, 334, 113, 25);
 		rdbtnFloatingPoint.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e){
 				model.setFormat(new FloatingPointFormat());
@@ -346,7 +347,7 @@ public class CalculatorController extends JFrame {
 		JRadioButton rdbtnFixedPoint = new JRadioButton("Fixed Point");
 		rdbtnFixedPoint.setSelected(true);
 		buttonGroup_1.add(rdbtnFixedPoint);
-		rdbtnFixedPoint.setBounds(663, 356, 127, 25);
+		rdbtnFixedPoint.setBounds(663, 356, 108, 25);
 		rdbtnFixedPoint.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e){
 				model.setFormat(new FixedPointFormat());
@@ -371,6 +372,14 @@ public class CalculatorController extends JFrame {
 			}
 		});
 		getContentPane().add(btnNewButton_3);
+		
+		JList list = new JList();
+		list.setBounds(790, 426, 199, -381);
+		getContentPane().add(list);
+		
+		JLabel lblNewLabel = new JLabel("History");
+		lblNewLabel.setBounds(854, 13, 56, 16);
+		getContentPane().add(lblNewLabel);
 		Dimension dim = new Dimension(700, 50);
 	}
 	
