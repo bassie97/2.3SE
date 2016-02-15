@@ -265,8 +265,8 @@ public class CalculatorController extends JFrame {
 		});
 		getContentPane().add(button_20);
 		
-		JButton btnC_1 = new JButton("C");
-		btnC_1.setBounds(558, 388, 97, 70);
+		JButton btnC_1 = new JButton("Clear");
+		btnC_1.setBounds(558, 388, 97, 29);
 		btnC_1.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e){
 				model.clear();
@@ -309,6 +309,7 @@ public class CalculatorController extends JFrame {
 		getContentPane().add(rdbtnOctal);
 		
 		JRadioButton rdbtnDecimal = new JRadioButton("Decimal");
+		rdbtnDecimal.setSelected(true);
 		buttonGroup.add(rdbtnDecimal);
 		rdbtnDecimal.setBounds(663, 245, 127, 25);
 		rdbtnDecimal.addActionListener(new ActionListener() { 
@@ -343,6 +344,7 @@ public class CalculatorController extends JFrame {
 		getContentPane().add(rdbtnFloatingPoint);
 		
 		JRadioButton rdbtnFixedPoint = new JRadioButton("Fixed Point");
+		rdbtnFixedPoint.setSelected(true);
 		buttonGroup_1.add(rdbtnFixedPoint);
 		rdbtnFixedPoint.setBounds(663, 356, 127, 25);
 		rdbtnFixedPoint.addActionListener(new ActionListener() { 
@@ -360,6 +362,15 @@ public class CalculatorController extends JFrame {
 			}
 		});
 		getContentPane().add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("Delete");
+		btnNewButton_3.setBounds(558, 426, 97, 29);
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				model.delete();
+			}
+		});
+		getContentPane().add(btnNewButton_3);
 		Dimension dim = new Dimension(700, 50);
 	}
 	

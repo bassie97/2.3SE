@@ -43,6 +43,7 @@ public class CalculatorModel {
   private ArrayList<ActionListener> actionListenerList;
 
   public void addOperand(String newOperand) throws FormatException {
+	  System.out.println(newOperand);
 	  operand_1 = operand_0;
 	  try{
 		  base.checkBase(newOperand);
@@ -50,11 +51,11 @@ public class CalculatorModel {
 		  operand_0 = format.parse(newOperand, base);
 		  }catch (FormatException ex){
 			//TODO add dialog for errormessage
-		  	System.out.println("Wrong operand: " + ex.getMessage());
+			  JOptionPane.showMessageDialog(null, "Wrong operand: " + ex.getMessage());
 		  }
 	  }	  
 	  catch (NumberBaseException ex){
-		  System.out.println("Wrong operand: " + ex.getMessage());
+		  JOptionPane.showMessageDialog(null, "Wrong operand: " + ex.getMessage());
 		  clearText();
 	  }  
   }
@@ -132,6 +133,7 @@ public class CalculatorModel {
   public void delete() {
     operand_0 = operand_1;
     operand_1 = new Rational();
+    clearText();
   }
   
   public void clear(){

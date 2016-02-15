@@ -33,7 +33,13 @@ extends Format {
     return result;
   }
 
-  public Rational parse(String number, Base base) {
-    return new Rational(base.parse(number));
+  public Rational parse(String number, Base base) throws FormatException {
+	  int indexMul = number.indexOf('*');
+	  int indexPow = number.indexOf('^');
+	  int indexDiv = number.indexOf('/');
+	  if(indexMul > 0 || indexPow > 0 || indexDiv > 0) {
+		  throw new FormatException("Error! Not a fixed point format");
+	  }
+	  return new Rational(base.parse(number));
   }
 }
