@@ -4,7 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
+import model.BinaryBase;
 import model.CalculatorModel;
+import model.DecimalBase;
+import model.HexBase;
+import model.OctalBase;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -88,7 +92,7 @@ public class CalculatorController extends JFrame {
 		button_2.setBounds(449, 156, 97, 70);
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				model.updateText("+");
+				model.add();
 			}
 		});
 		getContentPane().add(button_2);
@@ -97,7 +101,7 @@ public class CalculatorController extends JFrame {
 		button_3.setBounds(558, 156, 97, 70);
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				model.updateText("-");
+				model.subtract();
 			}
 		});
 		getContentPane().add(button_3);
@@ -260,11 +264,21 @@ public class CalculatorController extends JFrame {
 		
 		JButton btnC_1 = new JButton("C");
 		btnC_1.setBounds(558, 388, 97, 70);
+		btnC_1.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e){
+				model.clear();
+			}
+		});
 		getContentPane().add(btnC_1);
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Hexadecimal");
 		buttonGroup.add(rdbtnNewRadioButton);
 		rdbtnNewRadioButton.setBounds(664, 179, 127, 25);
+		rdbtnNewRadioButton.addActionListener(new ActionListener() { 
+				public void actionPerformed(ActionEvent e){
+					model.setBase(new HexBase());
+				}
+			});
 		getContentPane().add(rdbtnNewRadioButton);
 		
 		JLabel lblBase = new JLabel("Base:");
@@ -274,16 +288,31 @@ public class CalculatorController extends JFrame {
 		JRadioButton rdbtnBinary = new JRadioButton("Binary");
 		buttonGroup.add(rdbtnBinary);
 		rdbtnBinary.setBounds(663, 201, 127, 25);
+		rdbtnBinary.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e){
+				model.setBase(new BinaryBase());
+			}
+		});
 		getContentPane().add(rdbtnBinary);
 		
 		JRadioButton rdbtnOctal = new JRadioButton("Octal");
 		buttonGroup.add(rdbtnOctal);
 		rdbtnOctal.setBounds(663, 222, 127, 25);
+		rdbtnOctal.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e){
+				model.setBase(new OctalBase());
+			}
+		});
 		getContentPane().add(rdbtnOctal);
 		
 		JRadioButton rdbtnDecimal = new JRadioButton("Decimal");
 		buttonGroup.add(rdbtnDecimal);
 		rdbtnDecimal.setBounds(663, 245, 127, 25);
+		rdbtnDecimal.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e){
+				model.setBase(new DecimalBase());
+			}
+		});
 		getContentPane().add(rdbtnDecimal);
 		
 		JLabel lblFormat = new JLabel("Format:");
@@ -316,12 +345,11 @@ public class CalculatorController extends JFrame {
 		Dimension dim = new Dimension(700, 50);
 	}
 	
-	 
-		public CalculatorModel getModel() {
-			return model;
-		}
+	public CalculatorModel getModel() {
+		return model;
+	}
 
-		public void setModel(CalculatorModel model) {
-			this.model = model;
-		}
+	public void setModel(CalculatorModel model) {
+		this.model = model;
+	}
 }

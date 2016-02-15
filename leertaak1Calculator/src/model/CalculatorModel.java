@@ -22,6 +22,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 /**
  * The multiformat calculator
  */
@@ -47,6 +49,7 @@ public class CalculatorModel {
 	  }	  
 	  catch (NumberBaseException ex){
 		  System.out.println("Wrong operand: " + ex.getMessage());
+		  clearText();
 	  }  
   }
   
@@ -60,25 +63,29 @@ public class CalculatorModel {
 			  new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "updateText"));
   }
   
+  public void clearText(){
+	  text = "";
+	  processEvent(
+			  new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "cleartext"));
+	  
+  }
+  
   /**
    * get the text from te view and run addOperand
    */
   public void updateOperand() {
 	  if(text == "") {
-		  System.out.println("leeg");
+		  System.out.println("Can't add empty operand");
 	  }else{
-		  System.out.println(text);
-	  }
-	  
-//	  try{
-//		  addOperand(text);
-//		  text = "";
-//	  }catch (FormatException ex) {
-//		  System.out.println("dasfsd");
-//	  }
-	  
-	  
-		
+		  try{
+			  System.out.println("added operand");
+			  System.out.println(secondOperand());
+			  addOperand(text);
+			  clearText();
+		  }catch (FormatException ex) {
+			  //to do doe event
+		  }
+	  }	
   }
 
 /**
@@ -91,14 +98,18 @@ public class CalculatorModel {
   public void add(){
     operand_0 = operand_1.plus(operand_0);
     operand_1 = new Rational();
+    updateText(secondOperand());
+    
   }
   public void subtract() {
     operand_0 = operand_1.minus(operand_0);
     operand_1 = new Rational();
+    updateText(secondOperand());
   }
   public void multiply() {
     operand_0 = operand_1.mul(operand_0);
     operand_1 = new Rational();
+    updateText(secondOperand());
   }
   public void divide() {
 	 Rational tempOperand = operand_1;
@@ -110,10 +121,18 @@ public class CalculatorModel {
 		 operand_0 = tempOperand;
 	 }
     operand_1 = new Rational();
+    updateText(secondOperand());
   }
   public void delete() {
     operand_0 = operand_1;
     operand_1 = new Rational();
+  }
+  
+  public void clear(){
+	  operand_0 = new Rational();
+	  operand_1 = new Rational();
+	  processEvent(
+			  new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "clearoperands"));
   }
 
   public String firstOperand(){
@@ -125,7 +144,11 @@ public class CalculatorModel {
 
   public void setBase(Base newBase){
     base = newBase;
+    text = secondOperand();
+    processEvent(
+			  new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "changed base"));
   }
+  
   public Base getBase(){
     return base;
   }
