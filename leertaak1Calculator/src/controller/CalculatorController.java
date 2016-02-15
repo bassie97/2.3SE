@@ -34,6 +34,10 @@ import javax.swing.JSeparator;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ButtonGroup;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class CalculatorController extends JFrame {
 	/**
@@ -53,8 +57,20 @@ public class CalculatorController extends JFrame {
 		setTitle("MultiFormatCalculator");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1007, 503);
+		setBounds(100, 100, 1007, 529);
 		getContentPane().setLayout(null);
+		
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menu = new JMenu("About");
+		JMenuItem item = new JMenuItem("Us");
+		item.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "This awesome calculator is created by Wouter Houtsma and Bas de Ruiter");
+			}
+		});
+		menu.add(item);
+		menuBar.add(menu);
+		this.setJMenuBar(menuBar);
 		
 		JButton btnNewButton = new JButton("1");
 		btnNewButton.addActionListener(new ActionListener() {
