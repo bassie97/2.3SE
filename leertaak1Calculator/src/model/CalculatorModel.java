@@ -34,7 +34,7 @@ public class CalculatorModel {
   // The current numberbase of the calculator
   private Base base = new DecimalBase();
   // The current result string on the result view
-  private String text = new String();
+  private String text = "";
   
   //Utility field used by event firing machine
   private ArrayList<ActionListener> actionListenerList;
@@ -58,6 +58,27 @@ public class CalculatorModel {
 	  text = text + keyStroke;
 	  processEvent(
 			  new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "updateText"));
+  }
+  
+  /**
+   * get the text from te view and run addOperand
+   */
+  public void updateOperand() {
+	  if(text == "") {
+		  System.out.println("leeg");
+	  }else{
+		  System.out.println(text);
+	  }
+	  
+//	  try{
+//		  addOperand(text);
+//		  text = "";
+//	  }catch (FormatException ex) {
+//		  System.out.println("dasfsd");
+//	  }
+	  
+	  
+		
   }
 
 /**

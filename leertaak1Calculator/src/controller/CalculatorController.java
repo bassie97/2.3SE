@@ -304,6 +304,15 @@ public class CalculatorController extends JFrame {
 		buttonGroup_1.add(rdbtnFixedPoint);
 		rdbtnFixedPoint.setBounds(663, 356, 127, 25);
 		getContentPane().add(rdbtnFixedPoint);
+		
+		JButton btnNewButton_2 = new JButton("Add");
+		btnNewButton_2.setBounds(667, 388, 97, 70);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				model.updateOperand();
+			}
+		});
+		getContentPane().add(btnNewButton_2);
 		Dimension dim = new Dimension(700, 50);
 	}
 	
