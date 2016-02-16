@@ -33,7 +33,7 @@ public class CalculatorModel {
   private Rational operand_0 = new Rational();
   private Rational operand_1 = new Rational();
   private Stack<Rational> operands = new Stack();
-  private Iterator<Rational> operandIterator = operands.iterator();
+  private Iterator<Rational> operandIterator;
   private String operator = "";
   
   // The current format of the calculator
@@ -109,33 +109,54 @@ public class CalculatorModel {
 
   public void add(){
 
-    operand_0 = new Rational();
-    
-    operand_1.plus(operand_0);
-    updateText(secondOperand());
-    
+    operand_1 = new Rational();
+    Rational op = new Rational();
+    while(operands.size() > 0){
+    	op = operands.pop();
+    	operand_1 = operand_1.plus(op);
+    }   
+    updateText(firstOperand());
   }
   public void subtract() {
-    operand_0 = operand_1.minus(operand_0);
-    operand_1 = new Rational();
-    updateText(secondOperand());
+	  operand_1 = new Rational();
+	    Rational op = new Rational();
+	    operand_1 = operands.get(0);
+	    while(operands.size() > 1){
+	    	op = operands.pop();
+	    	operand_1 = operand_1.minus(op);
+	    }   
+	    operands.pop();
+	    updateText(firstOperand());
   }
   public void multiply() {
-    operand_0 = operand_1.mul(operand_0);
-    operand_1 = new Rational();
-    updateText(secondOperand());
+	    operand_1 = new Rational();
+	    Rational op = new Rational();
+	    while(operands.size() > 0){
+	    	op = operands.pop();
+	    	operand_1 = operand_1.mul(op);
+	    }   
+	    updateText(firstOperand());
   }
   public void divide() {
-	 Rational tempOperand = operand_1;
+	 Stack<Rational> backupStack = new Stack<Rational>();
+	 
+	 
 	 try{
-		 operand_0 = operand_1.div(operand_0);
+		    Rational op = new Rational();
+		    operand_1 = operands.get(0);
+		    for(int i = 1; i < operands.size(); i++){
+		    	op = operands.get(i);
+		    	operand_1 = operand_1.div(op);
+		    	backupStack.push(op);
+		    }
+		    operands = new Stack<Rational>();
 	 }
 	 catch(IllegalArgumentException zero){
 		 System.out.println("Cant devide by zero dummy!");
-		 operand_0 = tempOperand;
+		 operands = backupStack;
 	 }
-    operand_1 = new Rational();
-    updateText(secondOperand());
+	 System.out.println(format.toString(operand_1,base));
+    updateText(firstOperand());
   }
   public void delete() {
     operand_0 = operand_1;
@@ -153,9 +174,14 @@ public class CalculatorModel {
   
   public void equals(){
 	  String operator = getText();
-
-	  String savedOperand = secondOperand();
-	  String savedOperand1 = firstOperand();
+	  operandIterator = operands.iterator();
+	  Rational next = new Rational();
+	  String savedOperand = new String();
+	  while(operandIterator.hasNext()){
+		 next = operandIterator.next();
+		 savedOperand += format.toString(next, base) + ", ";
+	  }
+	  
 	  clearText();
 	  switch(operator){
 	  case "+":
@@ -174,7 +200,7 @@ public class CalculatorModel {
 		  System.out.println("Wrong operator");
 	  }
 
-	  addCalculation(savedOperand1 + ", " + savedOperand + ", " + operator + " = " + secondOperand());
+	  addCalculation(savedOperand + operator + " = " + firstOperand());
 	  
   }
 
