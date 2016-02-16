@@ -213,7 +213,6 @@ public class CalculatorModel {
 
   public void setBase(Base newBase){
     base = newBase;
-    text = secondOperand();
     processEvent(
 			  new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "changed base"));
   }
@@ -224,7 +223,6 @@ public class CalculatorModel {
   
   public void setFormat(Format newFormat){
     format = newFormat;
-    text = secondOperand();
     processEvent(
 			  new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "changed base"));
     
