@@ -45,6 +45,7 @@ public class BoomDing {
 		for(Enumeration<DefaultMutableTreeNode> br = breadth; br.hasMoreElements();){
 			System.out.println(br.nextElement().getUserObject());
 		}
+		//super netjes dit
 	}
 	public DefaultMutableTreeNode getRoot(){
 		return root;
