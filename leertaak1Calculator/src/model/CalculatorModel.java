@@ -134,7 +134,7 @@ public class CalculatorModel {
 	    while(operands.size() > 0){
 	    	op = operands.pop();
 	    	operand_1 = operand_1.mul(op);
-	    }   
+	    }
 	    updateText(firstOperand());
   }
   public void divide() {
@@ -158,6 +158,7 @@ public class CalculatorModel {
 	 System.out.println(format.toString(operand_1,base));
     updateText(firstOperand());
   }
+  
   public void delete() {
     operand_0 = operand_1;
     operand_1 = new Rational();
@@ -199,7 +200,6 @@ public class CalculatorModel {
 	  default:
 		  System.out.println("Wrong operator");
 	  }
-
 	  addCalculation(savedOperand + operator + " = " + firstOperand());
 	  
   }
@@ -213,6 +213,8 @@ public class CalculatorModel {
 
   public void setBase(Base newBase){
     base = newBase;
+    text = "";
+    updateText(firstOperand());
     processEvent(
 			  new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "changed base"));
   }
@@ -223,6 +225,8 @@ public class CalculatorModel {
   
   public void setFormat(Format newFormat){
     format = newFormat;
+    text = "";
+    updateText(firstOperand());
     processEvent(
 			  new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "changed base"));
     
