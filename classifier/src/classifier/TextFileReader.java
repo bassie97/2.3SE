@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,20 +18,25 @@ public class TextFileReader {
 	//needed for creating a decision tree
 	private Map<Item, String> trainingSet = new HashMap<Item, String>();
 	private Map<String, FeatureType> features = new HashMap<String, FeatureType>();
+	
+	//needed for creating an array of features for an item
+	private String[] stringFeatures;
 
-	public TextFileReader(){
+	public TextFileReader() throws IOException{
 		//create buffered reader for reading the files
 		InputStream trainingSetInput = getClass().getResourceAsStream(TRAINING_SET);
-		BufferedReader trainingSetReader = new BufferedReader(new InputStreamReader(trainingSetInput));
+		trainingSetReader = new BufferedReader(new InputStreamReader(trainingSetInput));
 		
 		InputStream featureSetInput = getClass().getResourceAsStream(FEATURE_SET);
-		BufferedReader featureSetReader = new BufferedReader(new InputStreamReader(featureSetInput));
+		featureSetReader = new BufferedReader(new InputStreamReader(featureSetInput));
 		
+		generateFeatures();
+		generateTrainingSet();
 	}
 	
 	
 	public Map<String, FeatureType> getFeatures() {
-		return features;
+		return this.features;
 	}
 	
 	/**
@@ -38,11 +44,7 @@ public class TextFileReader {
 	 * @param features
 	 */
 	public void setFeatures(Map<String, FeatureType> features) {
-		try {
-			this.features = generateFeatures();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.features = features;
 	}
 	
 	/**
@@ -50,20 +52,24 @@ public class TextFileReader {
 	 * @return featureSet
 	 * @throws IOException
 	 */
-	private Map<String, FeatureType> generateFeatures() throws IOException {
+	private void generateFeatures() throws IOException {
 		String line;
 		Map<String, FeatureType> featureSet = new HashMap<String, FeatureType>();
+		ArrayList<String> f = new ArrayList<String>();
 		while((line = featureSetReader.readLine()) != null){
 			featureSet.put(line, yn);
-			System.out.println(line);
+			f.add(line);
 		}
+		String[] fList = new String[f.size()];
+		fList = f.toArray(fList);
 		
-		return featureSet;
+		this.stringFeatures = fList;
+		this.features = featureSet;
 	}
 
 
 	public Map<Item, String> getTrainingSet() {
-		return trainingSet;
+		return this.trainingSet;
 	}
 	
 	/**
@@ -73,10 +79,10 @@ public class TextFileReader {
 	 * @throws NumberFormatException 
 	 */
 	public void setTrainingSet(Map<Item, String> trainingSet) throws NumberFormatException, IOException {
-		this.trainingSet = generateTrainingSet();
+		this.trainingSet = trainingSet;
 	}
 	
-	private Map<Item, String> generateTrainingSet() throws NumberFormatException, IOException{
+	public void generateTrainingSet() throws NumberFormatException, IOException{
 		int featureCount = Integer.parseInt(trainingSetReader.readLine().split(";")[1]);
 		int itemCount = Integer.parseInt(trainingSetReader.readLine().split(";")[1]);
 		
@@ -84,9 +90,36 @@ public class TextFileReader {
 		
 		Map<Item, String> itemSet = new HashMap<Item, String>();
 		while((line = trainingSetReader.readLine()) != null ) {
+			//create an array from the item information with a split on regex: ";"
+			String[] lineArray = line.split(";");
 			
+			//name of the item
+			String name = lineArray[0];
+			
+			//create an list of features that are included in the item
+			ArrayList<Feature> itemFeatures = new ArrayList<Feature>();
+			
+			for(int i = 1; i < featureCount + 1; i++){
+				Feature f;
+				if(Integer.parseInt(lineArray[i]) == 1){
+					f = new Feature(stringFeatures[i-1], "yes", yn);
+					itemFeatures.add(f);
+				}else if(Integer.parseInt(lineArray[i]) == 0){
+					f = new Feature(stringFeatures[i-1], "no", yn);
+					itemFeatures.add(f);
+				}else{
+					System.out.println("wrong value! " + lineArray[i]);
+				}
+				
+			}
+			Feature[] fArray = new Feature[itemFeatures.size()];
+			fArray = itemFeatures.toArray(fArray);
+			
+			//create the item and put it in the itemSet
+			Item item = new Item(name, fArray );
+			System.out.println("Created: " + item.getName());
+			itemSet.put(item, name);
 		}
-		
-		return itemSet;
+		this.trainingSet = itemSet;
 	}
 }

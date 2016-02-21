@@ -29,7 +29,15 @@ public class Item {
   private Map<String, Feature> features = new HashMap<String, Feature>();
   private String name;
 
-  /**
+  public String getName() {
+	return name;
+}
+
+public void setName(String name) {
+	this.name = name;
+}
+
+/**
    * constructor of item
    * @param name The name of the item
    * @param features An array of the features this item has
