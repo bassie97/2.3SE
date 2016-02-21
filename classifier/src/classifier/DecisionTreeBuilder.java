@@ -23,7 +23,7 @@ public class DecisionTreeBuilder {
 	
 	private Map<Item, String> createTrainingSet() throws FileNotFoundException {
 		//create a file instance
-		File file = new File("trainingset.txt");
+		File file = makeAbsoluteFilename("CatText.txt");
 		
 		// create a Scanner for the file
 		Scanner input = new Scanner(file);
