@@ -83,11 +83,12 @@ public class GetalRij {
 		}	
 		return false;
 	}
-/**
- * Binary Left Search.
- * @param zoekWaarde
- * @return
- */
+	
+	/**
+	 * Iterative Binary Search.
+	 * @param zoekWaarde
+	 * @return
+	 */
 	public boolean zitErinD( int zoekWaarde ){
 		int low = 0;
 		int high = getallen.length;
